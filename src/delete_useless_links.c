@@ -70,20 +70,29 @@ int 	has_neigh(t_ants *ants, int i, int j)
 	return (0);
 }
 
-void	delete(t_ants *ants, int i, int j)
+void	delete(t_ants *ants, int i, int j, int bool)
 {
 	int 	k;
 
 	k = -1;
 	while (++k < (ants->s_top[i]).count_neigh)
+	{
+		if ((ants->s_top[i]).neighbours[k] == NULL)
+			continue ;
 		if (ft_strcmp((ants->s_top[i]).neighbours[k], (ants->s_top[j]).room_name) == 0)
 			ft_strdel(&(ants->s_top[i]).neighbours[k]);
-	ft_rewrite(ants, i);
+	}
+	if (bool == 1)
+		ft_rewrite(ants, i);
 	//Delete second
 	k = -1;
 	while (++k < (ants->s_top[j]).count_neigh)
+	{
+		if ((ants->s_top[j]).neighbours[k] == NULL)
+			continue ;
 		if (ft_strcmp((ants->s_top[j]).neighbours[k], (ants->s_top[i]).room_name) == 0)
 			ft_strdel(&(ants->s_top[j]).neighbours[k]);
+	}
 	ft_rewrite(ants, j);
 }
 
@@ -98,7 +107,7 @@ void	delete_useless_links(t_ants *ants)
 		j = -1;
 		while (++j < ants->count_rooms)
 			if (i != j && ((ants->s_top[i]).weight == (ants->s_top[j]).weight) && has_neigh(ants, i, j))
-				delete(ants, i, j);
+				delete(ants, i, j, 1);
 	}
 
 

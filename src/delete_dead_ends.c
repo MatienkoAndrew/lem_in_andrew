@@ -25,14 +25,20 @@ void	delete_dead_ends(t_ants *ants)
 			ft_strcmp((ants->s_top[i]).room_name, search_startroom(ants)) && \
 			ft_strcmp((ants->s_top[i]).room_name, search_endroom(ants)))
 		{
+			int 	count = (ants->s_top[i]).count_neigh;
 			j = -1;
-			while (++j < (ants->s_top[i]).count_neigh)
+			while (++j < count)
 			{
-				(ants->s_top[search(ants, (ants->s_top[i]).neighbours[j])]).output -= 1;
+				if ((ants->s_top[search(ants, (ants->s_top[i]).neighbours[j])]).room_name != NULL)
+					(ants->s_top[search(ants, (ants->s_top[i]).neighbours[j])]).output -= 1;
 				delete_forward_to(ants, i, search(ants, (ants->s_top[i]).neighbours[j]));
-				delete(ants, i, search(ants, (ants->s_top[i]).neighbours[j]));
+				delete(ants, i, search(ants, (ants->s_top[i]).neighbours[j]), 0);
 				(ants->s_top[i]).input -= 1;
 			}
+			(ants->s_top[i]).count_neigh -= j;
+//			free(ants->s_top[i].neighbours);
+//			Отправляемся обратно с новыми данными
+			i = -1;
 		}
 	}
 

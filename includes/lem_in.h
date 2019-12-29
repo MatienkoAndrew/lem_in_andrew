@@ -274,7 +274,7 @@ void				delete_useless_links(t_ants *ants);
 void 				align_links(t_ants *ants);
 void				orientir_graph(t_ants *ants);
 void				delete_dead_ends(t_ants *ants);
-void				delete(t_ants *ants, int i, int j);
+void				delete(t_ants *ants, int i, int j, int bool);
 void				delete_input_forks(t_ants *ants);
 int 				has_neigh(t_ants *ants, int i, int j);
 void				delete_forward_to(t_ants *ants, int i, int j);

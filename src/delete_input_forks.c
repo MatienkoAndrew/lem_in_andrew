@@ -55,9 +55,8 @@ void		ft_rewrite_forward_to(t_ants *ants, int i)
 	free(temp);
 }
 
-void	delete_forward_to(t_ants *ants, int i, int j)
-{
-	int 	k;
+void	delete_forward_to(t_ants *ants, int i, int j) {
+	int k;
 
 	k = -1;
 	while (++k < (ants->s_top[i]).forwarders)
@@ -95,7 +94,7 @@ void	delete_links(t_ants *ants, int point)
 		if ((ants->s_top[point_new]).output > 1 && has_forward_to(ants, point_new, point))
 		{
 			delete_forward_to(ants, point_new, point);
-			delete(ants, point_new, point);
+			delete(ants, point_new, point, 0);
 			(ants->s_top[point_new]).output -= 1;
 			(ants->s_top[point]).input -= 1;
 		}
@@ -126,7 +125,10 @@ void	delete_input_forks(t_ants *ants)
 		i = -1;
 		while (++i < ((ants->s_top[j]).count_neigh))
 		{
-			int 	k = search(ants, (ants->s_top[j]).neighbours[i]);
+			int 	k;
+			if ((ants->s_top[j]).neighbours[i] == NULL)
+				continue;
+			k = search(ants, (ants->s_top[j]).neighbours[i]);
 			if ((ants->s_top[k]).mark == 0 && ft_strcmp((ants->s_top[j]).room_name, (ants->s_top[search(ants, search_endroom(ants))]).room_name))
 			{
 				(ants->s_top[k]).mark = 1;

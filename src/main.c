@@ -29,7 +29,7 @@ int		main(int argc, char **argv)
 
 //	Step_2
 	bfs(&ants);
-//	Step_3
+//	Step_3D
 	delete_useless_links(&ants);
 //	Step 4
 	orientir_graph(&ants);

@@ -38,7 +38,8 @@ void	form_paths(t_ants *ants)
 		{
 			distances[i] = ft_strjoin(distances[i], "/");
 			distances[i] = ft_strjoin(distances[i], (ants->s_top[point_new]).room_name);
-			point_new = search(ants, (ants->s_top[point_new]).forward_to[0]);
+			if ((ants->s_top[point_new]).forward_to[0] != NULL)
+				point_new = search(ants, (ants->s_top[point_new]).forward_to[0]);
 			str = ft_strdup((ants->s_top[point_new]).room_name);
 		}
 		distances[i] = ft_strjoin(distances[i], "/");
