@@ -93,7 +93,7 @@ int 	unique(int *len_dist, t_ants *ants)
 				break ;
 			}
 	}
-	ft_printf("\nUnique:  %i\n", uniq);
+//	ft_printf("\nUnique:  %i\n", uniq);
 	return (uniq);
 }
 
@@ -107,10 +107,13 @@ void	ft_write_roads(t_ants *ants, char **distances, int *len_dist)
 
 	if (!(ants->roads = (char ***)malloc(sizeof(char **) * forks)))
 		error("Not allocated memory");
+	ants->count_road_variable = forks;
 	int 	i;
 	i = -1;
 	while (++i < forks)
 		ants->roads[i] = NULL;
+	if (!(ants->count_road = (int *)malloc(sizeof(int) * size)))
+		error("Not allocatede memory");
 	i = -1;
 	while (++i < size)
 	{
@@ -118,16 +121,18 @@ void	ft_write_roads(t_ants *ants, char **distances, int *len_dist)
 		int 	count_min = count_min_num(len_dist, min, size);
 		if (!(ants->roads[i] = (char **)malloc(sizeof(char *) * count_min)))
 			error("Not allocated memory");
+
+		ants->count_road[i] = count_min;
+
 		int 	*index_min = find_min_index(len_dist, count_min, min, size);
 		int 	k = -1;
 		while (++k < count_min)
 		{
 			ants->roads[i][k] = ft_strdup(distances[index_min[k]]);
-			ft_printf("\nDista %i: %s  Length: %i", i + 1, ants->roads[i][k], min);
+			ft_printf("\nDistance %i: %s  Length: %i", i + 1, ants->roads[i][k], min);
 		}
+		ft_strdel_int(&index_min);
 	}
-
-
 }
 
 void	form_paths(t_ants *ants)
@@ -164,26 +169,35 @@ void	form_paths(t_ants *ants)
 		point_new = search(ants, (ants->s_top[search(ants, search_startroom(ants))]).forward_to[i]);
 		while (ft_strcmp(str, (ants->s_top[search(ants, search_endroom(ants))].room_name)))
 		{
-			distances[i] = ft_strjoin(distances[i], "/");
-			distances[i] = ft_strjoin(distances[i], (ants->s_top[point_new]).room_name);
+			distances[i] = for_leaks(distances[i], ants, point_new);
+//			distances[i] = ft_strjoin(distances[i], "/");
+//			distances[i] = ft_strjoin(distances[i], (ants->s_top[point_new]).room_name);
 			if ((ants->s_top[point_new]).forward_to[0] != NULL)
 				point_new = search(ants, (ants->s_top[point_new]).forward_to[0]);
+			ft_strdel(&str);
 			str = ft_strdup((ants->s_top[point_new]).room_name);
 
 			len_dist[i] += 1;
 		}
-		distances[i] = ft_strjoin(distances[i], "/");
-		distances[i] = ft_strjoin(distances[i], (ants->s_top[search(ants, search_endroom(ants))]).room_name);
+		distances[i] = for_leaks(distances[i], ants, search(ants, search_endroom(ants)));
+//		distances[i] = ft_strjoin(distances[i], "/");
+//		distances[i] = ft_strjoin(distances[i], (ants->s_top[search(ants, search_endroom(ants))]).room_name);
 		ft_strdel(&str);
 	}
 
 
+	ft_printf("\n\nStep 9:\n");
+
 	ft_write_roads(ants, distances, len_dist);
 
-
-	ft_printf("\n\nStep 9:\n");
 	i = -1;
 	while (++i < (ants->s_top[search(ants, search_startroom(ants))].forwarders))
-		ft_printf("\nDistance %i: %s  Length: %i", i + 1, distances[i], len_dist[i]);
+		ft_strdel(&distances[i]);
+	free(distances);
+	ft_strdel_int(&len_dist);
+
+//	i = -1;
+//	while (++i < (ants->s_top[search(ants, search_startroom(ants))].forwarders))
+//		ft_printf("\nDistance %i: %s  Length: %i", i + 1, distances[i], len_dist[i]);
 
 }

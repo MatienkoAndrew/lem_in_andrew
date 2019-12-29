@@ -12,6 +12,25 @@
 
 #include "../includes/lem_in.h"
 
+void	free_road(t_ants *ants)
+{
+	int 	i;
+	int 	j;
+
+	i = -1;
+	while (++i < ants->count_road_variable)
+	{
+		j = -1;
+		while (++j < ants->count_road[i])
+			ft_strdel(&ants->roads[i][j]);
+		free(ants->roads[i]);
+		ants->roads[i] = NULL;
+	}
+	free(ants->roads);
+	ants->roads = NULL;
+	ft_strdel_int(&ants->count_road);
+}
+
 void	free_info(t_ants *ants)
 {
 	int	i;
@@ -38,7 +57,7 @@ void	free_info(t_ants *ants)
 	}
 	free(ants->s_top);
 	ants->s_top = NULL;
-	//free_road(ants);
+	free_road(ants);
 	i = -1;
 	while (++i != ants->special_for_end_int)
 		free(ants->special_for_end[i]);

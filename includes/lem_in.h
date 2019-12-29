@@ -281,5 +281,6 @@ void				delete_forward_to(t_ants *ants, int i, int j);
 void				delete_output_forks(t_ants *ants);
 void				form_paths(t_ants *ants);
 int 				find_min_dist(int *len_dist, int size);
+char 				*for_leaks(char *distance, t_ants *ants, int point_new);
 
 #endif

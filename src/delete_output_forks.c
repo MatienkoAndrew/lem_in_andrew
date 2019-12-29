@@ -144,6 +144,7 @@ void	delete_some_links(t_ants *ants, int point)
 
 //	FOR LEAKS
 	char 	*temp;
+	int 	temp_forwarders = (ants->s_top[point]).forwarders;
 
 	i = -1;
 	while (++i < (ants->s_top[point]).forwarders)
@@ -173,7 +174,7 @@ void	delete_some_links(t_ants *ants, int point)
 	}
 
 	i = -1;
-	while (++i < (ants->s_top[point]).forwarders)
+	while (++i < temp_forwarders)//(ants->s_top[point]).forwarders)
 		ft_strdel(&distances[i]);
 	free(distances);
 	ft_strdel_int(&len_dist);
