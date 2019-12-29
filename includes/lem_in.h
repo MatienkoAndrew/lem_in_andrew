@@ -49,7 +49,7 @@ typedef	struct		s_ants
 	t_top			*s_top;
 	int				lem_count;
 	int				count_rooms;
-	char			***road;
+	char			***roads;
 	int				count_road_variable;
 	int				*count_road;
 	int				min_road;
@@ -280,5 +280,6 @@ int 				has_neigh(t_ants *ants, int i, int j);
 void				delete_forward_to(t_ants *ants, int i, int j);
 void				delete_output_forks(t_ants *ants);
 void				form_paths(t_ants *ants);
+int 				find_min_dist(int *len_dist, int size);
 
 #endif

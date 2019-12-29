@@ -100,7 +100,7 @@ void	init_val(t_ants *ants)
 	(*ants).lem_in_house = 0;
 	(*ants).min_road = 0;
 	(*ants).reverse_lem = 0;
-	(*ants).road = NULL;
+	(*ants).roads = NULL;
 	(*ants).special_for_end = NULL;
 	(*ants).special_for_end_int = 0;
 	(*ants).special_for_end = NULL;
