@@ -29,7 +29,7 @@ int		main(int argc, char **argv)
 
 //	Step_2
 	bfs(&ants);
-//	Step_3D
+//	Step 3
 	delete_useless_links(&ants);
 //	Step 4
 	orientir_graph(&ants);
@@ -43,8 +43,8 @@ int		main(int argc, char **argv)
 	delete_output_forks(&ants);
 //	Step 9
 	form_paths(&ants);
+//	Step 10
 
-//	for_functions(&ants, &stat);
 	free_info(&ants);
 	return (0);
 }

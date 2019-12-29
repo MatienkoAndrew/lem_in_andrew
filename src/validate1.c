@@ -105,4 +105,5 @@ void	init_val(t_ants *ants)
 	(*ants).special_for_end_int = 0;
 	(*ants).special_for_end = NULL;
 	(*ants).reverse_lem = 0;
+	(*ants).length_road = NULL;
 }

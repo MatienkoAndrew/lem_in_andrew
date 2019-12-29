@@ -54,6 +54,7 @@ void	free_info(t_ants *ants)
 		ft_strdel(&ants->s_top[i].name_ant_in_flat);
 		ft_strdel(&ants->s_top[i].his_road);
 		ft_strdel_int(&ants->s_top[i].from_to);
+		ft_strdel_int(&ants->length_road);
 	}
 	free(ants->s_top);
 	ants->s_top = NULL;

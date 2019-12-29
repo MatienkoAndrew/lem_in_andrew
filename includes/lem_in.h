@@ -58,6 +58,9 @@ typedef	struct		s_ants
 	int				gl_help;
 	int				gl_help_1;
 	int				gl_help_2;
+
+
+	int 			*length_road;
 }					t_ants;
 
 typedef struct		s_queue

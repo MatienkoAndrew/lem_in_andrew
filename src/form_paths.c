@@ -112,8 +112,15 @@ void	ft_write_roads(t_ants *ants, char **distances, int *len_dist)
 	i = -1;
 	while (++i < forks)
 		ants->roads[i] = NULL;
+
+//	Длина каждого пути
+	if (!(ants->length_road = (int *)malloc(sizeof(int) * size)))
+		error("Not allocated memory");
+
+//	Количесво дорог на стороне кубика
 	if (!(ants->count_road = (int *)malloc(sizeof(int) * size)))
-		error("Not allocatede memory");
+		error("Not allocated memory");
+
 	i = -1;
 	while (++i < size)
 	{
@@ -129,7 +136,8 @@ void	ft_write_roads(t_ants *ants, char **distances, int *len_dist)
 		while (++k < count_min)
 		{
 			ants->roads[i][k] = ft_strdup(distances[index_min[k]]);
-			ft_printf("\nDistance %i: %s  Length: %i", i + 1, ants->roads[i][k], min);
+			ants->length_road[i + k] = min;
+			ft_printf("\nDistance %i: %s  Length: %i", i + 1, ants->roads[i][k], ants->length_road[i + k]);
 		}
 		ft_strdel_int(&index_min);
 	}
