@@ -43,29 +43,29 @@ void	delete_dead_ends(t_ants *ants)
 	}
 
 //	Print
-	ft_printf("\nStep 6:\n");
-	i = -1;
-	while (++i < ants->count_rooms)
-	{
-		ft_printf("\nRoom: %-6s  Neighbours: ", (ants->s_top[i]).room_name);
-		j = -1;
-		while (++j < (ants->s_top[i]).count_neigh)
-		{
-			ft_printf("%-6s ", (ants->s_top[i]).neighbours[j]);
-		}
-	}
-	ft_printf("\n\n");
-	i = -1;
-	while (++i < ants->count_rooms)
-		ft_printf("Room: %-6s  Input: %-2d  Output: %-2d\n", (ants->s_top[i]).room_name, (ants->s_top[i]).input, (ants->s_top[i]).output);
-
-
-	i = -1;
-	while (++i < ants->count_rooms)
-	{
-		ft_printf("\nRoom: %-6s  forward_to: ", (ants->s_top[i]).room_name);
-		j = -1;
-		while (++j < (ants->s_top[i]).forwarders)
-			ft_printf("%-6s ", (ants->s_top[i]).forward_to[j]);
-	}
+//	ft_printf("\nStep 6:\n");
+//	i = -1;
+//	while (++i < ants->count_rooms)
+//	{
+//		ft_printf("\nRoom: %-6s  Neighbours: ", (ants->s_top[i]).room_name);
+//		j = -1;
+//		while (++j < (ants->s_top[i]).count_neigh)
+//		{
+//			ft_printf("%-6s ", (ants->s_top[i]).neighbours[j]);
+//		}
+//	}
+//	ft_printf("\n\n");
+//	i = -1;
+//	while (++i < ants->count_rooms)
+//		ft_printf("Room: %-6s  Input: %-2d  Output: %-2d\n", (ants->s_top[i]).room_name, (ants->s_top[i]).input, (ants->s_top[i]).output);
+//
+//
+//	i = -1;
+//	while (++i < ants->count_rooms)
+//	{
+//		ft_printf("\nRoom: %-6s  forward_to: ", (ants->s_top[i]).room_name);
+//		j = -1;
+//		while (++j < (ants->s_top[i]).forwarders)
+//			ft_printf("%-6s ", (ants->s_top[i]).forward_to[j]);
+//	}
 }

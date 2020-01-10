@@ -113,4 +113,7 @@ void	initialize_s_top(t_top *top)
 	top->output = 0;
 	top->forward_to = NULL;
 	top->forwarders = 0;
+	top->part_of_road = NULL;
+	top->what_ant = 0;
+	top->in_house = 0;
 }

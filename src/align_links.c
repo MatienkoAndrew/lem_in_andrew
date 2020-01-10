@@ -43,8 +43,8 @@ void 	align_links(t_ants *ants)
 
 
 //	Print
-	ft_printf("\n\nStep 5: \n\nOutput/Input:\n");
-	i = -1;
-	while (++i < ants->count_rooms)
-		ft_printf("Room: %-6s  Input: %-2d  Output: %-2d\n", (ants->s_top[i]).room_name, (ants->s_top[i]).input, (ants->s_top[i]).output);
+//	ft_printf("\n\nStep 5: \n\nOutput/Input:\n");
+//	i = -1;
+//	while (++i < ants->count_rooms)
+//		ft_printf("Room: %-6s  Input: %-2d  Output: %-2d\n", (ants->s_top[i]).room_name, (ants->s_top[i]).input, (ants->s_top[i]).output);
 }

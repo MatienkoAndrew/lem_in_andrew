@@ -35,10 +35,15 @@ typedef struct		s_top
 	int				bellman_was_here;
 
 
+
 	int 			input;
 	int 			output;
 	char 			**forward_to;
 	int 			forwarders;
+	char 			*part_of_road;
+
+	int 			what_ant;
+	int 			in_house;
 }					t_top;
 
 typedef	struct		s_ants
@@ -60,7 +65,9 @@ typedef	struct		s_ants
 	int				gl_help_2;
 
 
+	int 			lem_in_start;
 	int 			*length_road;
+	int 			lem_in_end;
 }					t_ants;
 
 typedef struct		s_queue
@@ -117,6 +124,14 @@ typedef struct		s_norm
 	char			*end;
 	char			*start;
 }					t_norm;
+
+typedef struct		s_lists
+{
+	int 			l;
+	int 			go;
+	char 			*cur_room;
+	struct s_lists	*next;
+}					t_lists;
 
 /*
 **=================File validate.c===========================
@@ -285,5 +300,6 @@ void				delete_output_forks(t_ants *ants);
 void				form_paths(t_ants *ants);
 int 				find_min_dist(int *len_dist, int size);
 char 				*for_leaks(char *distance, t_ants *ants, int point_new);
+void				move_ants(t_ants *ants);
 
 #endif

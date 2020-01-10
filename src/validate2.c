@@ -60,7 +60,8 @@ int		nbr_neight(t_room *start, t_room *room, char *line, t_ants *ants, int fd)
 		return (0);
 	while (get_next_line(fd, &line) > 0)
 	{
-		ft_printf("%s\n", line);
+		if (line != NULL)
+			ft_printf("%s\n", line);
 		while (line != NULL && *line == '#')
 			check_sharp(&line, room, fd);
 		if (line == NULL)
@@ -75,6 +76,7 @@ int		nbr_neight(t_room *start, t_room *room, char *line, t_ants *ants, int fd)
 		ft_strdel(&str1);
 		ft_strdel(&str2);
 	}
+
 	return (1);
 }
 
@@ -141,12 +143,14 @@ void	check_sharp(char **line, t_room *room, int fd)
 			room->is_start = 1;
 		else if (ft_strstr(*line, "##end"))
 			room->is_end = 1;
+//		ft_printf("%s\n", *line);
 	}
 	else
 	{
 		ft_strdel(line);
 		get_next_line(fd, line);
-		ft_printf("%s\n", *line);
+		if (*line != '\0')
+			ft_printf("%s\n", *line);
 		return ;
 	}
 	ft_strdel(line);

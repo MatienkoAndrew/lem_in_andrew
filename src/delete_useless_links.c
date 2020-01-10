@@ -112,14 +112,14 @@ void	delete_useless_links(t_ants *ants)
 
 
 //	Print
-	ft_printf("\nStep 3:\n");
-	i = -1;
-	while (++i < ants->count_rooms)
-	{
-		ft_printf("\nRoom: %-6s  Neighbours: ", (ants->s_top[i]).room_name);
-		j = -1;
-		while (++j < (ants->s_top[i]).count_neigh)
-			ft_printf("%-6s ", (ants->s_top[i]).neighbours[j]);
-	}
+//	ft_printf("\nStep 3:\n");
+//	i = -1;
+//	while (++i < ants->count_rooms)
+//	{
+//		ft_printf("\nRoom: %-6s  Neighbours: ", (ants->s_top[i]).room_name);
+//		j = -1;
+//		while (++j < (ants->s_top[i]).count_neigh)
+//			ft_printf("%-6s ", (ants->s_top[i]).neighbours[j]);
+//	}
 }
 

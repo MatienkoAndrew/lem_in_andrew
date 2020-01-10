@@ -12,20 +12,62 @@
 
 #include "../includes/lem_in.h"
 
+void   change_real_name_1(t_ants *ants, char *start, char *end, int i)
+{
+	if (ft_strcmp(ants->s_top[i].room_name, end) == 0)
+	{
+		free(ants->s_top[i].room_name);
+		ants->s_top[i].room_name = ft_strdup("end");
+	}
+	else if (ft_strcmp(ants->s_top[i].room_name, start) == 0)
+	{
+		free(ants->s_top[i].room_name);
+		ants->s_top[i].room_name = ft_strdup("start");
+	}
+}
+void   change_real_name(t_ants *ants)
+{
+	t_norm a;
+	a.end = ft_strdup(search_endroom(ants));
+	a.start = ft_strdup(search_startroom(ants));
+	a.i = -1;
+	while (++a.i != ants->count_rooms)
+	{
+		change_real_name_1(ants, a.start, a.end, a.i);
+		a.j = -1;
+		while (++a.j != (ants->s_top[a.i]).count_neigh)
+		{
+			if (ft_strcmp(ants->s_top[a.i].neighbours[a.j], a.end) == 0)
+			{
+				free(ants->s_top[a.i].neighbours[a.j]);
+				ants->s_top[a.i].neighbours[a.j] = ft_strdup("end");
+			}
+			else if (ft_strcmp(ants->s_top[a.i].neighbours[a.j], a.start) == 0)
+			{
+				free(ants->s_top[a.i].neighbours[a.j]);
+				ants->s_top[a.i].neighbours[a.j] = ft_strdup("start");
+			}
+		}
+	}
+	ft_strdel(&a.end);
+	ft_strdel(&a.start);
+}
+
 int		main(int argc, char **argv)
 {
 	t_ants	ants;
-//	int		stat;
 
-//	argv = 0;
+	argv = 0;
 	argc = 0;
 
-	int fd = open(argv[1], O_RDONLY);
+//	int fd = open(argv[1], O_RDONLY);
 
 	init_val(&ants);
-	if (!validate(&ants, fd))
+	if (!validate(&ants, 0))
 		error("Input isn't valid!");
 	ft_printf("\n");
+
+	change_real_name(&ants);
 
 //	Step_2
 	bfs(&ants);
@@ -44,6 +86,7 @@ int		main(int argc, char **argv)
 //	Step 9
 	form_paths(&ants);
 //	Step 10
+	move_ants(&ants);
 
 	free_info(&ants);
 	return (0);

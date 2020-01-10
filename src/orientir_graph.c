@@ -39,13 +39,13 @@ void	orientir_graph(t_ants *ants)
 
 
 	//	Print
-	ft_printf("\n\nStep 4: \n\nOrientir graph:\n");
-	i = -1;
-	while (++i < ants->count_rooms)
-	{
-		ft_printf("\nRoom: %-6s  forward_to: ", (ants->s_top[i]).room_name);
-		j = -1;
-		while (++j < (ants->s_top[i]).forwarders)
-			ft_printf("%-6s ", (ants->s_top[i]).forward_to[j]);
-	}
+//	ft_printf("\n\nStep 4: \n\nOrientir graph:\n");
+//	i = -1;
+//	while (++i < ants->count_rooms)
+//	{
+//		ft_printf("\nRoom: %-6s  forward_to: ", (ants->s_top[i]).room_name);
+//		j = -1;
+//		while (++j < (ants->s_top[i]).forwarders)
+//			ft_printf("%-6s ", (ants->s_top[i]).forward_to[j]);
+//	}
 }

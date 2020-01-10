@@ -60,10 +60,10 @@ void        bfs(t_ants *ants)
 	//End = INF
 	ants->s_top[search(ants, search_endroom(ants))].weight = 100000000;
 
-    ft_printf("\nStep 2:\n");
-    i = -1;
-	while (++i < ants->count_rooms)
-		ft_printf("Room: %-6s  \tWeight: %-6i\n", (ants->s_top[i]).room_name, (ants->s_top[i]).weight);
+//    ft_printf("\nStep 2:\n");
+//    i = -1;
+//	while (++i < ants->count_rooms)
+//		ft_printf("Room: %-6s  \tWeight: %-6i\n", (ants->s_top[i]).room_name, (ants->s_top[i]).weight);
 }
 
 char	*pop(t_queue *q)

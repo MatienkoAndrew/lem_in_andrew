@@ -30,7 +30,7 @@ FUNC = main \
 	   form_paths \
 	   for_norm \
 	   for_norm_1 \
-	   for_memory_2 other_help
+	   for_memory_2 other_help move_ants
 
 
 HEADER = -I includes/

@@ -122,7 +122,7 @@ void	ft_write_roads(t_ants *ants, char **distances, int *len_dist)
 		error("Not allocated memory");
 
 	i = -1;
-	while (++i < size)
+	while (++i < forks)
 	{
 		int 	min = min_num(len_dist, size);
 		int 	count_min = count_min_num(len_dist, min, size);
@@ -137,7 +137,7 @@ void	ft_write_roads(t_ants *ants, char **distances, int *len_dist)
 		{
 			ants->roads[i][k] = ft_strdup(distances[index_min[k]]);
 			ants->length_road[i + k] = min;
-			ft_printf("\nDistance %i: %s  Length: %i", i + 1, ants->roads[i][k], ants->length_road[i + k]);
+//			ft_printf("\nDistance %i: %s  Length: %i", i + 1, ants->roads[i][k], ants->length_road[i + k]);
 		}
 		ft_strdel_int(&index_min);
 	}
@@ -158,7 +158,7 @@ void	form_paths(t_ants *ants)
 		distances[i] = ft_strdup((ants->s_top[search(ants, search_startroom(ants))]).room_name);
 	}
 
-	char 	*str;// = ft_strdup((ants->s_top[search(ants, search_startroom(ants))]).room_name);
+	char 	*str;
 
 	int 	*len_dist;
 	len_dist = NULL;
@@ -178,8 +178,6 @@ void	form_paths(t_ants *ants)
 		while (ft_strcmp(str, (ants->s_top[search(ants, search_endroom(ants))].room_name)))
 		{
 			distances[i] = for_leaks(distances[i], ants, point_new);
-//			distances[i] = ft_strjoin(distances[i], "/");
-//			distances[i] = ft_strjoin(distances[i], (ants->s_top[point_new]).room_name);
 			if ((ants->s_top[point_new]).forward_to[0] != NULL)
 				point_new = search(ants, (ants->s_top[point_new]).forward_to[0]);
 			ft_strdel(&str);
@@ -188,13 +186,11 @@ void	form_paths(t_ants *ants)
 			len_dist[i] += 1;
 		}
 		distances[i] = for_leaks(distances[i], ants, search(ants, search_endroom(ants)));
-//		distances[i] = ft_strjoin(distances[i], "/");
-//		distances[i] = ft_strjoin(distances[i], (ants->s_top[search(ants, search_endroom(ants))]).room_name);
 		ft_strdel(&str);
 	}
 
 
-	ft_printf("\n\nStep 9:\n");
+//	ft_printf("\n\nStep 9:\n");
 
 	ft_write_roads(ants, distances, len_dist);
 

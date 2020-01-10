@@ -12,22 +12,43 @@
 
 #include "./includes/libft.h"
 
-char	*ft_strsub(char const *s, unsigned int start, size_t len)
+char    *ft_strsub(char const *s, unsigned int start, size_t len)
 {
-	char	*array;
-	size_t	i;
-
-	i = 0;
+	char    *result;
+	size_t  i;
 	if (s == NULL)
 		return (NULL);
-	array = (char *)malloc(sizeof(char) * (len + 1));
-	if (array == NULL)
+	if (start > ft_strlen(s))
 		return (NULL);
-	while (len--)
+	if ((result = (char *)malloc(sizeof(char) * (len + 1))) == NULL)
+		return (NULL);
+	i = 0;
+	while (i < len && s[start] != '\0')
 	{
-		array[i] = s[start + i];
+		result[i] = s[start];
+		start++;
 		i++;
 	}
-	array[i] = '\0';
-	return (array);
+	result[i] = '\0';
+	return (result);
 }
+
+//char	*ft_strsub(char const *s, unsigned int start, size_t len)
+//{
+//	char	*array;
+//	size_t	i;
+//
+//	i = 0;
+//	if (s == NULL)
+//		return (NULL);
+//	array = (char *)malloc(sizeof(char) * (len + 1));
+//	if (array == NULL)
+//		return (NULL);
+//	while (len--)
+//	{
+//		array[i] = s[start + i];
+//		i++;
+//	}
+//	array[i] = '\0';
+//	return (array);
+//}
