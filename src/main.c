@@ -57,13 +57,13 @@ int		main(int argc, char **argv)
 {
 	t_ants	ants;
 
-	argv = 0;
+//	argv = 0;
 	argc = 0;
 
-//	int fd = open(argv[1], O_RDONLY);
+	int fd = open(argv[1], O_RDONLY);
 
 	init_val(&ants);
-	if (!validate(&ants, 0))
+	if (!validate(&ants, fd))
 		error("Input isn't valid!");
 	ft_printf("\n");
 

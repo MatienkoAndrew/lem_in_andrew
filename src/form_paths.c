@@ -101,6 +101,8 @@ void	ft_write_roads(t_ants *ants, char **distances, int *len_dist)
 {
 	int 	forks;
 	int 	size;
+	int 	*index_min;
+	index_min = NULL;
 
 	size = (ants->s_top[search(ants, search_startroom(ants))]).forwarders;
 	forks = unique(len_dist, ants);
@@ -121,6 +123,8 @@ void	ft_write_roads(t_ants *ants, char **distances, int *len_dist)
 	if (!(ants->count_road = (int *)malloc(sizeof(int) * size)))
 		error("Not allocated memory");
 
+	int remind = 0;
+
 	i = -1;
 	while (++i < forks)
 	{
@@ -131,11 +135,13 @@ void	ft_write_roads(t_ants *ants, char **distances, int *len_dist)
 
 		ants->count_road[i] = count_min;
 
-		int 	*index_min = find_min_index(len_dist, count_min, min, size);
+		index_min = find_min_index(len_dist, count_min, min, size);
 		int 	k = -1;
 		while (++k < count_min)
 		{
-			ants->roads[i][k] = ft_strdup(distances[index_min[k]]);
+			ants->roads[i][k] = NULL;
+			remind = index_min[k];
+			ants->roads[i][k] = ft_strdup(distances[remind]);
 			ants->length_road[i + k] = min;
 //			ft_printf("\nDistance %i: %s  Length: %i", i + 1, ants->roads[i][k], ants->length_road[i + k]);
 		}
@@ -154,12 +160,13 @@ void	form_paths(t_ants *ants)
 	i = -1;
 	while (++i < (ants->s_top[search(ants, search_startroom(ants))]).forwarders)
 	{
-		distances[i] = NULL;
+ 		distances[i] = NULL;
 		distances[i] = ft_strdup((ants->s_top[search(ants, search_startroom(ants))]).room_name);
 	}
 
 	char 	*str;
 
+	str = NULL;
 	int 	*len_dist;
 	len_dist = NULL;
 	if (!(len_dist = (int *)malloc(sizeof(int) * (ants->s_top[search(ants, search_startroom(ants))].forwarders))))
@@ -168,13 +175,25 @@ void	form_paths(t_ants *ants)
 	while (++i < (ants->s_top[search(ants, search_startroom(ants))].forwarders))
 		len_dist[i] = 2;
 
-
 	int 	point_new;
 	i = -1;
+
 	while (++i < (ants->s_top[search(ants, search_startroom(ants))].forwarders))
 	{
 		str = ft_strdup((ants->s_top[search(ants, search_startroom(ants))]).room_name);
 		point_new = search(ants, (ants->s_top[search(ants, search_startroom(ants))]).forward_to[i]);
+		while ((ants->s_top[point_new]).forward_to[0] != NULL)
+		{
+			distances[i] = for_leaks(distances[i], ants, point_new);
+			point_new = search(ants, (ants->s_top[point_new]).forward_to[0]);
+			ft_strdel(&str);
+			str = ft_strdup((ants->s_top[point_new]).room_name);
+			len_dist[i] += 1;
+		}
+		distances[i] = for_leaks(distances[i], ants, search(ants, search_endroom(ants)));
+		ft_strdel(&str);
+
+		/*
 		while (ft_strcmp(str, (ants->s_top[search(ants, search_endroom(ants))].room_name)))
 		{
 			distances[i] = for_leaks(distances[i], ants, point_new);
@@ -182,18 +201,16 @@ void	form_paths(t_ants *ants)
 				point_new = search(ants, (ants->s_top[point_new]).forward_to[0]);
 			ft_strdel(&str);
 			str = ft_strdup((ants->s_top[point_new]).room_name);
-
 			len_dist[i] += 1;
 		}
 		distances[i] = for_leaks(distances[i], ants, search(ants, search_endroom(ants)));
 		ft_strdel(&str);
+		 */
 	}
 
 
 //	ft_printf("\n\nStep 9:\n");
-
 	ft_write_roads(ants, distances, len_dist);
-
 	i = -1;
 	while (++i < (ants->s_top[search(ants, search_startroom(ants))].forwarders))
 		ft_strdel(&distances[i]);

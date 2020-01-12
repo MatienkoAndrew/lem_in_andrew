@@ -12,6 +12,9 @@
 
 #include "../includes/lem_in.h"
 
+
+void	moving(t_ants *ants);
+
 int find_count_slash(const char *arr)
 {
 	int i = 0;
@@ -337,10 +340,9 @@ int helper_for_foo_2(char *road, t_three_int t, t_ants *ants, char **temp)
 int is_check_foo(t_ants *ants, t_three_int t,
 				 const char *temp, const char *road)
 {
-	if (ft_strcmp(ants->s_top[t.i].room_name, temp) == 0
+	if (ft_strcmp("start/end", road) == 0 || (ft_strcmp(ants->s_top[t.i].room_name, temp) == 0
 		&& ft_strcmp(ants->s_top[t.i].room_name, "start") != 0
-		&& (ft_strcmp(ants->s_top[t.i].room_name, "end") != 0
-			|| ft_strcmp("start/end", road) == 0))
+		&& (ft_strcmp(ants->s_top[t.i].room_name, "end") != 0)))
 		return (1);
 	return (0);
 }
@@ -419,6 +421,14 @@ void    move_ants(t_ants *ants)
 	int     j;
 	int c = 0;
 	i = 0;
+
+	ants->lem_in_start = ants->lem_count;
+	if (!ft_strcmp(ants->roads[0][0], "start/end"))
+	{
+		while (ants->lem_in_end != ants->lem_count)
+			moving(ants);
+		return ;
+	}
 	while (i != ants->count_road_variable)
 		c += ants->count_road[i++];
 	to_null(ants);
@@ -453,7 +463,8 @@ void    move_ants(t_ants *ants)
 //  ft_printf("%d\n", count);
 }
 
-/*
+
+
 int 	count_slash(t_ants *ants, int i, int j)
 {
 	int 	count;
@@ -469,6 +480,8 @@ int 	count_slash(t_ants *ants, int i, int j)
 	return (count + 1);
 }
 
+
+/*
 int 	condition_to_go(t_ants *ants, int i, int j)
 {
 	int 	difference;
@@ -490,18 +503,13 @@ int 	condition_to_go(t_ants *ants, int i, int j)
 		sum += count_slash(ants, m, k);
 		count += 1;
 	}
-//	while (i + k != 0)
-//	{
-//		sum += count_slash(ants, i, i + k - 1);//ants->length_road[i + k - 1];
-//		k -= 1;
-//		count += 1;
-//	}
 	difference = count_slash(ants, i, j) * count - sum;
 	if (ants->lem_in_start > difference)
 		return (1);
 	else
 		return (0);
 }
+*/
 
 char 	*cutting(char *str)
 {
@@ -523,52 +531,62 @@ char 	*cutting(char *str)
 	return (str_new);
 }
 
-void	moving_1(t_ants *ants, char *str1)
+void 	moving(t_ants *ants)
 {
-	ants->s_top[search(ants, str1)].in_house = 0;
-	ants->s_top[search(ants, ants->s_top[search(ants, str1)].forward_to[0])].in_house = 1;
+	static int	k = 1;
 
-	int 	point = search(ants, str1);
-	int		point_new = search(ants, (ants->s_top[point]).forward_to[0]);
-	ants->s_top[point_new].what_ant = ants->s_top[point].what_ant;
-	ft_printf("L%i-%s ", ants->s_top[point].what_ant,
-			  ants->s_top[point].forward_to[0]);
-	if (!ft_strcmp(ants->s_top[point].forward_to[0], search_endroom(ants)))
-		ants->lem_in_end += 1;
+	ants->lem_in_end += 1;
+	ft_printf("L%i-%s\n", k++, search_endroom(ants));
 }
 
-void	moving(t_ants *ants, int i, int j)
-{
-	int 	length;
-	char 	*str1;
-
-	char 	*str2;
-	char 	*str3;
-	char 	*temp = ft_strdup(ants->roads[i][j]);
-
-	length = 0;
-	int length_road = count_slash(ants, i, j);
-	while (length != length_road - 1)//ants->length_road[i + j] - 1)
-	{
-		str1 = ft_strdup(cutting(temp));
-		if (ants->s_top[search(ants, str1)].in_house)
-		{
-			moving_1(ants, str1);
-		}
-		if (!ft_strcmp(str1, (ants->s_top[search(ants, search_startroom(ants))]).room_name) && ants->lem_in_start > 0)
-		{
-			str2 = ft_strsub(ants->roads[i][j], 0, for_norm_count(ants->roads[i][j], '/'));
-			str3 = ft_strsub(ants->roads[i][j] + ft_strlen(str1) + 1, 0, for_norm_count(ants->roads[i][j], '/'));
-			(ants->s_top[search(ants, str3)]).what_ant = ants->lem_count - ants->lem_in_start + 1;
-			ft_printf("L%i-%s ", (ants->s_top[search(ants, str3)]).what_ant, str3);
-			(ants->s_top[search(ants, str3)]).in_house = 1;
-			ants->lem_in_start -= 1;
-		}
-		length++;
-		temp = ft_strsub(temp, 0, ft_strlen(temp) - ft_strlen(str1) - 1);
-	}
-}
-
+//void	moving(t_ants *ants, int i, int j)
+//{
+//	int 	length;
+//	char 	*str1;
+//
+//	char 	*str2;
+//	char 	*str3;
+//	char 	*temp = ft_strdup(ants->roads[i][j]);
+//
+//	length = 0;
+//	int length_road = count_slash(ants, i, j);
+//	while (length != length_road - 1)//ants->length_road[i + j] - 1)
+//	{
+//		str1 = ft_strdup(cutting(temp));
+//		if (ants->s_top[search(ants, str1)].in_house)
+//		{
+//			ants->s_top[search(ants, str1)].in_house = 0;
+//			ants->s_top[search(ants, ants->s_top[search(ants, str1)].forward_to[0])].in_house = 1;
+//
+//			int 	point = search(ants, str1);
+//			int		point_new = search(ants, (ants->s_top[point]).forward_to[0]);
+//			ants->s_top[point_new].what_ant = ants->s_top[point].what_ant;
+//			ft_printf("L%i-%s ", ants->s_top[point].what_ant,
+//					  ants->s_top[point].forward_to[0]);
+//			if (!ft_strcmp(ants->s_top[point].forward_to[0], search_endroom(ants)))
+//				ants->lem_in_end += 1;
+//		}
+//		if (!ft_strcmp(str1, (ants->s_top[search(ants, search_startroom(ants))]).room_name) && ants->lem_in_start > 0)
+//		{
+//			str2 = ft_strsub(ants->roads[i][j], 0, for_norm_count(ants->roads[i][j], '/'));
+//			str3 = ft_strsub(ants->roads[i][j] + ft_strlen(str1) + 1, 0, for_norm_count(ants->roads[i][j], '/'));
+//			(ants->s_top[search(ants, str3)]).what_ant = ants->lem_count - ants->lem_in_start + 1;
+//			ft_printf("L%i-%s\n", (ants->s_top[search(ants, str3)]).what_ant, str3);
+//			(ants->s_top[search(ants, str3)]).in_house = 1;
+//			ants->lem_in_start -= 1;
+//			if (!ft_strcmp(ants->s_top[search(ants, str2)].forward_to[0], search_endroom(ants)))
+//				ants->lem_in_end += 1;
+//			ft_strdel(&str2);
+//			ft_strdel(&str3);
+//		}
+//		length++;
+//		int length_1 = ft_strlen(temp);
+//		ft_strdel(&temp);
+//		temp = ft_strsub(temp, 0, length_1 - ft_strlen(str1) - 1);
+//		ft_strdel(&str1);
+//	}
+//}
+/*
 void	move_ants(t_ants *ants)
 {
 	int		i;
@@ -576,6 +594,7 @@ void	move_ants(t_ants *ants)
 
 	ants->lem_in_start = ants->lem_count;
 
+	ft_printf("\n");
 	while (ants->lem_in_end != ants->lem_count)
 	{
 		i = -1;

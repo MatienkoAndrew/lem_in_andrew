@@ -18,7 +18,7 @@ char	*ft_strdup(const char *s)
 	size_t	i;
 
 	i = 0;
-	array = (char *)malloc(sizeof(*array) * (ft_strlen(s) + 1));
+	array = (char *)malloc(sizeof(char) * ft_strlen(s) + 1);
 	if (array == NULL)
 		return (NULL);
 	while (s[i] != '\0')
