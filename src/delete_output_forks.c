@@ -175,44 +175,55 @@ void	delete_some_links(t_ants *ants, int point)
 
 }
 
-void	delete_output_forks(t_ants *ants)
+void	delete_output_loop(t_ants *ants, t_queue *queue)
 {
 	int 	i;
 	int 	j;
-	t_queue queue;
+	int 	k;
 
-	init(&queue);
-	mark_to_null(ants);
-	(ants->s_top[search(ants, search_endroom(ants))]).mark = 1;
-
-	//засунули соседей в очередь
-	i = -1;
-	while (++i < (ants->s_top[search(ants, search_endroom(ants))]).count_neigh)
-	{
-		push(&queue, (ants->s_top[search(ants, search_endroom(ants))]).neighbours[i]);
-		ants->s_top[search(ants, (ants->s_top[search(ants, search_endroom(ants))]).neighbours[i])].mark = 1;
-	}
 	//расставляем веса
-	while (!is_empty_(&queue))
+	while (!is_empty_(queue))
 	{
-		j = search(ants, pop(&queue));
+		j = search(ants, pop(queue));
 		i = -1;
 		while (++i < ((ants->s_top[j]).count_neigh))
 		{
-			int 	k = -1;
+			k = -1;
 			if ((ants->s_top[j]).neighbours != NULL && (ants->s_top[j]).neighbours[i] != NULL)
 				k = search(ants, (ants->s_top[j]).neighbours[i]);
 			if (k != -1 && (ants->s_top[k]).mark == 0 && ft_strcmp((ants->s_top[j]).room_name, (ants->s_top[search(ants, search_startroom(ants))]).room_name))
 			{
 				(ants->s_top[k]).mark = 1;
-				push(&queue, (ants->s_top[j]).neighbours[i]);
+				push(queue, (ants->s_top[j]).neighbours[i]);
 				if ((ants->s_top[k]).output > 1 && ft_strcmp((ants->s_top[k]).room_name, (ants->s_top[search(ants, search_startroom(ants))]).room_name))
 					delete_some_links(ants, k);
 			}
 		}
 	}
+}
 
-	//Free
+void	bfs_21(t_ants *ants, t_queue *queue)
+{
+	int 	i;
+
+	(ants->s_top[search(ants, search_endroom(ants))]).mark = 1;
+	i = -1;
+	while (++i < (ants->s_top[search(ants, search_endroom(ants))]).count_neigh)
+	{
+		push(queue, (ants->s_top[search(ants, search_endroom(ants))]).neighbours[i]);
+		ants->s_top[search(ants, (ants->s_top[search(ants, search_endroom(ants))]).neighbours[i])].mark = 1;
+	}
+}
+
+void	delete_output_forks(t_ants *ants)
+{
+	int 	i;
+	t_queue queue;
+
+	init(&queue);
+	mark_to_null(ants);
+	bfs_21(ants, &queue);
+	delete_output_loop(ants, &queue);
 	i = -1;
 	while (queue.qu[++i] != NULL)
 		ft_strdel(&queue.qu[i]);
@@ -220,9 +231,10 @@ void	delete_output_forks(t_ants *ants)
 
 
 
-	//	Print
+//	//	Print
 //	ft_printf("\n\nStep 8:\n");
 //	i = -1;
+//	int 	j;
 //	while (++i < ants->count_rooms)
 //	{
 //		ft_printf("\nRoom: %-6s  Neighbours: ", (ants->s_top[i]).room_name);

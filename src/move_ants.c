@@ -436,8 +436,7 @@ void    move_ants(t_ants *ants)
 	ants->special_for_end = NULL;
 	ants->reverse_lem = 0;
 	ants->lem_in_house = ants->lem_count;
-//  ft_printf("\n\n");
-	int count = 0;
+  int count = 0;
 	int *ptr = (int *) malloc(sizeof(int) * c);
 	while (ants->lem_count > 0) {
 		inst_zero(&ptr, c, 0);
@@ -465,71 +464,71 @@ void    move_ants(t_ants *ants)
 
 
 
-int 	count_slash(t_ants *ants, int i, int j)
-{
-	int 	count;
-	int 	k;
+//int 	count_slash(t_ants *ants, int i, int j)
+//{
+//	int 	count;
+//	int 	k;
+//
+//	if (j == -1)
+//		return (0);
+//	count = 0;
+//	k = -1;
+//	while (ants->roads[i][j][++k] != '\0')
+//		if (ants->roads[i][j][k] == '/')
+//			count += 1;
+//	return (count + 1);
+//}
 
-	if (j == -1)
-		return (0);
-	count = 0;
-	k = -1;
-	while (ants->roads[i][j][++k] != '\0')
-		if (ants->roads[i][j][k] == '/')
-			count += 1;
-	return (count + 1);
-}
-
-
-/*
-int 	condition_to_go(t_ants *ants, int i, int j)
-{
-	int 	difference;
-	int 	sum;
-
-	sum = 0;
-	difference = 0;
-	int 	count = 0;
-	int 	k = j;
-	int 	m = i;
-	while (m != 0 || k != 0)
-	{
-		k -= 1;
-		if (k <= 0)
-		{
-			m -= 1;
-			k = ants->count_road[m] - 1;
-		}
-		sum += count_slash(ants, m, k);
-		count += 1;
-	}
-	difference = count_slash(ants, i, j) * count - sum;
-	if (ants->lem_in_start > difference)
-		return (1);
-	else
-		return (0);
-}
-*/
-
-char 	*cutting(char *str)
-{
-	int 	i;
-	int 	j;
-	char 	*str_new;
-
-	str_new = ft_strdup(str);
-	i = 0;
-	while (str[i] != '\0')
-		i++;
-	while (str[i] != '/')
-		i--;
-	j = i;
-	i--;
-	while (str[i] != '/' && i != -1)
-		i--;
-	str_new = ft_strsub(str, i + 1, for_norm_count(str, '/'));
-	return (str_new);
-}
+//
+//
+//int 	condition_to_go(t_ants *ants, int i, int j)
+//{
+//	int 	difference;
+//	int 	sum;
+//
+//	sum = 0;
+//	difference = 0;
+//	int 	count = 0;
+//	int 	k = j;
+//	int 	m = i;
+//	while (m != 0 || k != 0)
+//	{
+//		k -= 1;
+//		if (k <= 0)
+//		{
+//			m -= 1;
+//			k = ants->count_road[m] - 1;
+//		}
+//		sum += count_slash(ants, m, k);
+//		count += 1;
+//	}
+//	difference = count_slash(ants, i, j) * count - sum;
+//	if (ants->lem_in_start > difference)
+//		return (1);
+//	else
+//		return (0);
+//}
+//
+//
+//char 	*cutting(char *str)
+//{
+//	int 	i;
+//	int 	j;
+//	char 	*str_new;
+//
+//	str_new = ft_strdup(str);
+//	i = 0;
+//	while (str[i] != '\0')
+//		i++;
+//	while (str[i] != '/')
+//		i--;
+//	j = i;
+//	i--;
+//	while (str[i] != '/' && i != -1)
+//		i--;
+//	str_new = ft_strsub(str, i + 1, j - i - 1);//for_norm_count(str, '/'));
+//	return (str_new);
+//}
 
 void 	moving(t_ants *ants)
 {
@@ -580,40 +579,38 @@ void 	moving(t_ants *ants)
 //			ft_strdel(&str3);
 //		}
 //		length++;
-//		int length_1 = ft_strlen(temp);
-//		ft_strdel(&temp);
-//		temp = ft_strsub(temp, 0, length_1 - ft_strlen(str1) - 1);
-//		ft_strdel(&str1);
+////		ft_strdel(&temp);
+//		temp = ft_strsub(temp, 0,  ft_strlen(temp) - ft_strlen(str1) - 1);
+////		ft_strdel(&str1);
 //	}
 //}
-/*
-void	move_ants(t_ants *ants)
-{
-	int		i;
-	int 	j;
-
-	ants->lem_in_start = ants->lem_count;
-
-	ft_printf("\n");
-	while (ants->lem_in_end != ants->lem_count)
-	{
-		i = -1;
-		while (++i < ants->count_road_variable)
-		{
-			j = -1;
-			while (++j < ants->count_road[i])
-			{
-//				ft_printf("\n%s", ants->roads[i][j]);
-//				if (i == 0 && j == 0 && (ants->lem_in_start > 0))
+//
+//void	move_ants(t_ants *ants)
+//{
+//	int		i;
+//	int 	j;
+//
+//	ants->lem_in_start = ants->lem_count;
+//
+//	ft_printf("\n");
+//	while (ants->lem_in_end != ants->lem_count)
+//	{
+//		i = -1;
+//		while (++i < ants->count_road_variable)
+//		{
+//			j = -1;
+//			while (++j < ants->count_road[i])
+//			{
+////				ft_printf("\n%s", ants->roads[i][j]);
+////				if (i == 0 && j == 0 && (ants->lem_in_start > 0))
+////					moving(ants, i, j);
+//				if (condition_to_go(ants, i, j))
 //					moving(ants, i, j);
-				if (condition_to_go(ants, i, j))
-					moving(ants, i, j);
-				else
-					moving(ants, i, j);
-			}
-		}
-
-		ft_printf("\n");
-	}
-}
-*/
+//				else
+//					moving(ants, i, j);
+//			}
+//		}
+//
+//		ft_printf("\n");
+//	}
+//}

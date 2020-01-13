@@ -116,4 +116,5 @@ void	initialize_s_top(t_top *top)
 	top->part_of_road = NULL;
 	top->what_ant = 0;
 	top->in_house = 0;
+	top->was_here = 0;
 }

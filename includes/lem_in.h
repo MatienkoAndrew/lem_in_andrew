@@ -36,6 +36,7 @@ typedef struct		s_top
 
 
 
+	int 			was_here;
 	int 			input;
 	int 			output;
 	char 			**forward_to;
@@ -94,12 +95,6 @@ typedef struct		s_three_int
 	char			*room_name;
 }					t_three_int;
 
-typedef struct		s_zaeb
-{
-	int				number;
-	struct s_zaeb	*next;
-}					t_zaeb;
-
 typedef struct		s_room
 {
 	char			*room;
@@ -125,13 +120,21 @@ typedef struct		s_norm
 	char			*start;
 }					t_norm;
 
-typedef struct		s_lists
+typedef struct		s_a
 {
-	int 			l;
-	int 			go;
-	char 			*cur_room;
-	struct s_lists	*next;
-}					t_lists;
+	int				i;
+	char			**distances;
+	char			*str;
+	int				*len_dist;
+	int				point_new;
+}					t_a;
+
+typedef struct		s_b
+{
+	int				*index_min;
+	int				forks;
+	int				size;
+}					t_b;
 
 /*
 **=================File validate.c===========================
@@ -302,4 +305,5 @@ int 				find_min_dist(int *len_dist, int size);
 char 				*for_leaks(char *distance, t_ants *ants, int point_new);
 void				move_ants(t_ants *ants);
 
+void		ft_rewrite(t_ants *ants, int i);
 #endif

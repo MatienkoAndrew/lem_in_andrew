@@ -81,10 +81,15 @@ int		main(int argc, char **argv)
 	delete_dead_ends(&ants);
 //	Step 7
 	delete_input_forks(&ants);
+
+	delete_dead_ends(&ants);
 //	Step 8
 	delete_output_forks(&ants);
+
+//	delete_dead_ends(&ants);
 //	Step 9
 	form_paths(&ants);
+	ft_printf("\n\n");
 //	Step 10
 	move_ants(&ants);
 

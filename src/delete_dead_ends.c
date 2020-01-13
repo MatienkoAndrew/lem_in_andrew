@@ -29,14 +29,16 @@ void	delete_dead_ends(t_ants *ants)
 			j = -1;
 			while (++j < count)
 			{
+				if ((ants->s_top[i]).neighbours[j] == NULL)
+					continue ;
 				if ((ants->s_top[search(ants, (ants->s_top[i]).neighbours[j])]).room_name != NULL)
 					(ants->s_top[search(ants, (ants->s_top[i]).neighbours[j])]).output -= 1;
 				delete_forward_to(ants, i, search(ants, (ants->s_top[i]).neighbours[j]));
 				delete(ants, i, search(ants, (ants->s_top[i]).neighbours[j]), 0);
 				(ants->s_top[i]).input -= 1;
 			}
+//			ft_rewrite(ants, i);
 			(ants->s_top[i]).count_neigh -= j;
-//			free(ants->s_top[i].neighbours);
 //			Отправляемся обратно с новыми данными
 			i = -1;
 		}
@@ -68,4 +70,6 @@ void	delete_dead_ends(t_ants *ants)
 //		while (++j < (ants->s_top[i]).forwarders)
 //			ft_printf("%-6s ", (ants->s_top[i]).forward_to[j]);
 //	}
+//
+//	ft_printf("\n\n");
 }
