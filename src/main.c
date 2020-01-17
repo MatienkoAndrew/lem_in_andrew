@@ -64,6 +64,7 @@ int		main(int argc, char **argv)
 
 	init_val(&ants);
 	if (!validate(&ants, fd))
+//	if (!validate(&ants, 0))
 		error("Input isn't valid!");
 	ft_printf("\n");
 
@@ -89,7 +90,7 @@ int		main(int argc, char **argv)
 //	delete_dead_ends(&ants);
 //	Step 9
 	form_paths(&ants);
-	ft_printf("\n\n");
+//	ft_printf("\n\n");
 //	Step 10
 	move_ants(&ants);
 

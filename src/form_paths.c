@@ -139,7 +139,7 @@ void	ft_write_roads(t_ants *ants, char **distances, int *len_dist)
 			ants->roads[i][k] = NULL;
 			ants->roads[i][k] = ft_strdup(distances[index_min[k]]);
 			ants->length_road[i + k] = min;
-			ft_printf("\nDistance %i: %s  Length: %i", i + 1, ants->roads[i][k], ants->length_road[i + k]);
+//			ft_printf("\nDistance %i: %s  Length: %i", i + 1, ants->roads[i][k], ants->length_road[i + k]);
 		}
 		ft_strdel_int(&index_min);
 	}
@@ -215,23 +215,13 @@ void	form_paths(t_ants *ants)
 	int 	point_new;
 	i = -1;
 
+	(ants->s_top[search(ants, search_endroom(ants))]).forward_to[0] = NULL;
+
 	while (++i < (ants->s_top[search(ants, search_startroom(ants))].forwarders))
 	{
 		str = ft_strdup((ants->s_top[search(ants, search_startroom(ants))]).room_name);
 		point_new = search(ants, (ants->s_top[search(ants, search_startroom(ants))]).forward_to[i]);
-//		while ((ants->s_top[point_new]).forward_to[0] != NULL)
-//		{
-//			distances[i] = for_leaks(distances[i], ants, point_new);
-//			point_new = search(ants, (ants->s_top[point_new]).forward_to[0]);
-//			ft_strdel(&str);
-//			str = ft_strdup((ants->s_top[point_new]).room_name);
-//			len_dist[i] += 1;
-//		}
-//		distances[i] = for_leaks(distances[i], ants, search(ants, search_endroom(ants)));
-//		ft_strdel(&str);
-
-
-		while (ft_strcmp(str, (ants->s_top[search(ants, search_endroom(ants))].room_name)))
+		while ((ants->s_top[point_new]).forward_to[0] != NULL)
 		{
 			distances[i] = for_leaks(distances[i], ants, point_new);
 			if ((ants->s_top[point_new]).forward_to[0] != NULL)
@@ -243,10 +233,23 @@ void	form_paths(t_ants *ants)
 		distances[i] = for_leaks(distances[i], ants, search(ants, search_endroom(ants)));
 		ft_strdel(&str);
 
+
+//		while (ft_strcmp(str, (ants->s_top[search(ants, search_endroom(ants))].room_name)))
+//		{
+//			distances[i] = for_leaks(distances[i], ants, point_new);
+//			if ((ants->s_top[point_new]).forward_to[0] != NULL)
+//				point_new = search(ants, (ants->s_top[point_new]).forward_to[0]);
+//			ft_strdel(&str);
+//			str = ft_strdup((ants->s_top[point_new]).room_name);
+//			len_dist[i] += 1;
+//		}
+//		distances[i] = for_leaks(distances[i], ants, search(ants, search_endroom(ants)));
+//		ft_strdel(&str);
+
 	}
 
 
-	ft_printf("\n\nStep 9:\n");
+//	ft_printf("\n\nStep 9:\n");
 	ft_write_roads(ants, distances, len_dist);
 	i = -1;
 	while (++i < (ants->s_top[search(ants, search_startroom(ants))].forwarders))

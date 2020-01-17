@@ -185,7 +185,7 @@ int 	find_min_dist_1(int *len_dist, int size)
 	i = -1;
 	while (++i < size)
 	{
-		if (len_dist[i] < min)
+		if (len_dist[i] < min && len_dist[i] != -1)
 		{
 			index = i;
 			min = len_dist[i];
@@ -291,6 +291,9 @@ void	delete_links(t_ants *ants, int point_cur)
 				delete(ants, point_before, point_cur, 0);
 				(ants->s_top[point_before]).output -= 1;
 				(ants->s_top[point_cur]).input -= 1;
+
+				len_dist[i] = -1;
+
 				bool = 1;
 				break ;
 			}
@@ -309,7 +312,7 @@ void	delete_links(t_ants *ants, int point_cur)
 		}
 	}
 
-	if (bool == 1)
+	if (bool == 1 && (ants->s_top[save]).input <= 1)
 	{
 		i = -1;
 		while (++i < input)
@@ -329,7 +332,7 @@ void	delete_links(t_ants *ants, int point_cur)
 	i = -1;
 	while (++i < input)
 	{
-		if (i == min_dist || len_dist[i] == 1)
+		if (i == min_dist || len_dist[i] == 1 || len_dist[i] == -1)
 			continue ;
 		else
 		{
